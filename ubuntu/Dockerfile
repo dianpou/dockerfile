@@ -7,7 +7,7 @@ MAINTAINER Garbin Huang <garbinh@gmail.com>
 RUN \
   apt-get update && \
   apt-get -y upgrade && \
-  apt-get install -y zsh exuberant-ctags openssh-server mysql-client postgresql-client && \
+  apt-get install -y zsh exuberant-ctags openssh-server supervisor mysql-client postgresql-client && \
   rm -rf /var/lib/apt/lists/*
 
 # prezto
@@ -23,6 +23,11 @@ RUN \
 COPY prompt_garbin_setup /root/.zprezto/modules/prompt/functions/
 COPY my_configs.vim /root/.vim_runtime/
 RUN sed -ri "s/theme 'sorin'/theme 'garbin'/g" ~/.zpreztorc
+
+# supervisor
+RUN sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
+
+VOLUME ["/etc/supervisor/conf.d"]
 
 WORKDIR /root
 
