@@ -6,7 +6,7 @@ MAINTAINER Garbin Huang <garbinh@gmail.com>
 
 RUN \
   apt-get update && \
-  apt-get -y upgrade && \
+  apt-get -y dist-upgrade && \
   apt-get install -y zsh exuberant-ctags openssh-server supervisor mysql-client postgresql-client && \
   rm -rf /var/lib/apt/lists/*
 
