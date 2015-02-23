@@ -24,7 +24,7 @@ COPY prompt_garbin_setup /root/.zprezto/modules/prompt/functions/
 COPY my_configs.vim /root/.vim_runtime/
 RUN sed -ri "s/theme 'sorin'/theme 'garbin'/g" ~/.zpreztorc
 
-RUN git clone https://github.com/scrooloose/nerdcommenter.git ~/.vim_runtime/sources_non_forked/
+RUN git clone https://github.com/scrooloose/nerdcommenter.git ~/.vim_runtime/sources_non_forked/nerdcommenter
 
 # supervisor
 RUN sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
