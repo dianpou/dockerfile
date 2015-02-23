@@ -13,18 +13,14 @@ RUN \
 # prezto
 RUN \
   zsh -c 'git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"; setopt EXTENDED_GLOB;  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}";  done;  chsh -s /bin/zsh'
-
+COPY prompt_garbin_setup /root/.zprezto/modules/prompt/functions/
+RUN sed -ri "s/theme 'sorin'/theme 'garbin'/g" ~/.zpreztorc
 
 # vimrc
 RUN \
-  git clone git://github.com/amix/vimrc.git ~/.vim_runtime && \
+  git clone --recursive git://github.com/garbin/vimrc.git ~/.vim_runtime && \
   sh ~/.vim_runtime/install_awesome_vimrc.sh
-
-COPY prompt_garbin_setup /root/.zprezto/modules/prompt/functions/
 COPY my_configs.vim /root/.vim_runtime/
-RUN sed -ri "s/theme 'sorin'/theme 'garbin'/g" ~/.zpreztorc
-
-RUN git clone https://github.com/scrooloose/nerdcommenter.git ~/.vim_runtime/sources_non_forked/nerdcommenter
 
 # supervisor
 RUN sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
