@@ -12,6 +12,7 @@ RUN echo "deb http://ppa.launchpad.net/nginx/stable/ubuntu $(lsb_release -sc) ma
 RUN add-apt-repository ppa:ondrej/php5-5.6
 
 RUN apt-get update
+RUN apt-get -y upgrade
 RUN apt-get install -y --force-yes nginx php5-fpm php5-mcrypt php5-sqlite php5-cli php5-xcache php5-curl php5-json php5-gd php5-geoip php5-imagick php5-ldap php5-mysql php5-oauth php5-pgsql php5-redis
 
 # Config

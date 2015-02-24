@@ -3,7 +3,7 @@ FROM dianpou/ubuntu
 MAINTAINER Garbin Huang <garbinh@gmail.com>
 
 RUN apt-get update
-RUN apt-get upgrade
+RUN apt-get -y upgrade
 RUN apt-get autoremove -y --purge mysql-client
 RUN DEBIAN_FRONTEND=noninteractive && apt-get install -y mysql-server-5.6
 
