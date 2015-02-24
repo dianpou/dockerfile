@@ -13,9 +13,9 @@ RUN rm -rf /var/lib/apt/lists/* && \
 RUN cp /etc/mysql/my.cnf /usr/share/mysql/my-default.cnf
 
 COPY mysql.conf /etc/supervisor/conf.d/
-COPY mysql_init /usr/bin/mysql_init
-RUN chmod a+x /usr/bin/mysql_init
-RUN /usr/bin/mysql_init
+COPY mysql_init_datadir /usr/bin/mysql_init_datadir
+RUN chmod a+x /usr/bin/mysql_init_datadir
+RUN /usr/bin/mysql_init_datadir
 
 VOLUME ["/etc/mysql", "/var/lib/mysql"]
 WORKDIR /etc/mysql
