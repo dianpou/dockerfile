@@ -14,7 +14,7 @@ RUN echo "listen_addresses = '*'" >> /etc/postgresql/9.4/main/postgresql.conf
 RUN echo 'local all all peer' >> /etc/postgresql/9.4/main/pg_hba.conf
 RUN echo 'adminmap   postgres         postgres' >> /etc/postgresql/9.4/main/pg_ident.conf
 RUN echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/9.4/main/pg_hba.conf
-RUN chown -R postgres:postgres /data/
+RUN chown -R postgres:postgres /var/lib/pgsql
 
 ADD postgresql.conf /etc/supervisor/conf.d/
 ADD postgresql-start.sh /etc/supervisor/conf.d/postgresql-start.sh

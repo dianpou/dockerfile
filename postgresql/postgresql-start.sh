@@ -1,10 +1,10 @@
 #/bin/sh
-DATA_DIR=/data/pgsql
+DATA_DIR=/var/lib/pgsql
 
 # test if DATA_DIR has content
 if [ -z "$(ls -A $DATA_DIR)" ]; then
     echo "Initializing PostgreSQL at $DATA_DIR"
-    cp -R /var/lib/postgresql/9.3/main/* $DATA_DIR  
+    cp -R /var/lib/postgresql/9.4/main/* $DATA_DIR  
     FIRST_RUN="true"  
 fi
 
