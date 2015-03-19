@@ -14,6 +14,7 @@ RUN \
   zsh -c 'git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"; setopt EXTENDED_GLOB;  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}";  done;  chsh -s /bin/zsh'
 COPY prompt_garbin_setup /root/.zprezto/modules/prompt/functions/
 RUN sed -ri "s/theme 'sorin'/theme 'garbin'/g" ~/.zpreztorc
+RUN sed -ri "s/'completion'/'completion' 'syntax-highlighting' 'history-substring-search'/g" ~/.zpreztorc
 
 # vimrc
 RUN \
@@ -26,7 +27,7 @@ RUN sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervis
 
 # iojs
 RUN curl -L https://iojs.org/dist/v1.5.1/iojs-v1.5.1-linux-x64.tar.xz | tar Jxvf - -C /opt
-RUN echo 'export PATH="$PATH:/opt/iojs-v1.5.1-linux-x64/bin" >> /root/.zshrc'
+RUN echo 'export PATH="$PATH:/opt/iojs-v1.5.1-linux-x64/bin"' >> /root/.zshrc
 
 VOLUME ["/etc/supervisor/conf.d"]
 
