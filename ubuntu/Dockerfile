@@ -5,7 +5,6 @@ MAINTAINER Garbin Huang <garbinh@gmail.com>
 # COPY sources.list /etc/apt/
 
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y --install-recommends linux-generic-lts-utopic
 RUN apt-get install -y zsh exuberant-ctags openssh-server supervisor mysql-client postgresql-client
 RUN rm -rf /var/lib/apt/lists/*
 
