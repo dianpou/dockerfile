@@ -6,7 +6,7 @@ MAINTAINER Garbin Huang <garbinh@gmail.com>
 
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y --install-recommends linux-generic-lts-utopic
-RUN apt-get install -y zsh exuberant-ctags openssh-server supervisor mysql-client postgresql-client 
+RUN apt-get install -y zsh exuberant-ctags openssh-server supervisor mysql-client postgresql-client
 RUN rm -rf /var/lib/apt/lists/*
 
 # prezto
@@ -23,6 +23,10 @@ COPY my_configs.vim /root/.vim_runtime/
 
 # supervisor
 RUN sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
+
+# iojs
+RUN curl -L https://iojs.org/dist/v1.5.1/iojs-v1.5.1-linux-x64.tar.xz | tar Jxvf - -C /opt
+RUN echo 'export PATH="$PATH:/opt/iojs-v1.5.1-linux-x64/bin" >> /root/.zshrc'
 
 VOLUME ["/etc/supervisor/conf.d"]
 
