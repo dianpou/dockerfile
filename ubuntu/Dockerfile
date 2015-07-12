@@ -28,6 +28,7 @@ RUN sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervis
 
 VOLUME ["/etc/supervisor/conf.d"]
 ADD ./sshd.conf /etc/supervisor/conf.d/sshd.conf
+RUN mkdir /var/run/sshd
 WORKDIR /root
 ADD ./bootstrap.sh /bootstrap.sh
 RUN chmod a+x /bootstrap.sh
