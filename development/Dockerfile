@@ -5,4 +5,4 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y proxychains
 
 ENTRYPOINT ["/bootstrap.sh"]
-CMD supervisord -n
+CMD sudo supervisord -n

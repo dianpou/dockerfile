@@ -9,7 +9,7 @@ if [ "$USER" ]; then
         su $USER -c 'setopt EXTENDED_GLOB; for rcfile in ${ZDOTDIR:-$HOME}/.zprezto/runcoms/^README.md(.N); do ln -s $rcfile ${ZDOTDIR:-$HOME}/.${rcfile:t}; done;'
         #su $USER -c 'setopt EXTENDED_GLOB;  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}";  done;'
         cd /home/$USER;
-	su $USER -c "$@"
+	su $USER -c "$*"
 else
         exec "$@"
 fi
