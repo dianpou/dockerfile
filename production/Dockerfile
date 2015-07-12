@@ -29,7 +29,7 @@ RUN echo "<?php phpinfo();" >> /var/www/index.php
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
-COPY supervisor/conf.d/ /etc/supervisor/conf.d
+COPY supervisor/conf.d/* /etc/supervisor/conf.d/
 COPY nginx_default_site /etc/nginx/sites-available/default
 
 VOLUME ["/etc/nginx", "/etc/php5", "/var/www"]
