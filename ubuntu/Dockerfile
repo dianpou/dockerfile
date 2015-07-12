@@ -2,7 +2,7 @@ FROM ubuntu
 
 MAINTAINER Garbin Huang <garbinh@gmail.com>
 
-COPY sources.list /etc/apt/sources.list
+#COPY sources.list /etc/apt/sources.list
 
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list 
 RUN apt-get update && apt-get -y upgrade
