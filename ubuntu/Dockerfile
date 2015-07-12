@@ -1,19 +1,23 @@
-FROM dockerfile/ubuntu
+FROM ubuntu
 
 MAINTAINER Garbin Huang <garbinh@gmail.com>
 
-# COPY sources.list /etc/apt/
+COPY sources.list /etc/apt/sources.list
 
+RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list 
 RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y zsh exuberant-ctags openssh-server supervisor mysql-client postgresql-client ruby ruby-dev ruby-bundler python python-dev python-pip python-virtualenv
+RUN apt-get install -y build-essential software-properties-common byobu curl git htop man unzip vim wget zsh exuberant-ctags openssh-server supervisor mysql-client postgresql-client ruby ruby-dev ruby-bundler python python-dev python-pip python-virtualenv
 RUN rm -rf /var/lib/apt/lists/*
 
 # prezto
 RUN \
-  zsh -c 'git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"; setopt EXTENDED_GLOB;  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}";  done;  chsh -s /bin/zsh'
-COPY prompt_garbin_setup /root/.zprezto/modules/prompt/functions/
-RUN sed -ri "s/theme 'sorin'/theme 'garbin'/g" ~/.zpreztorc
-RUN sed -ri "s/'completion'/'completion' 'syntax-highlighting' 'history-substring-search'/g" ~/.zpreztorc
+  zsh -c 'git clone --recursive https://github.com/garbin/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"; setopt EXTENDED_GLOB;  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}";  done;  chsh -s /bin/zsh'
+#COPY prompt_garbin_setup /root/.zprezto/modules/prompt/functions/
+#RUN sed -ri "s/theme 'sorin'/theme 'garbin'/g" ~/.zpreztorc
+#RUN sed -ri "s/'completion'/'completion' 'syntax-highlighting' 'history-substring-search'/g" ~/.zpreztorc
+
+RUN curl --silent --location https://deb.nodesource.com/setup_0.12 | bash -
+RUN apt-get install -y nodejs
 
 # vimrc
 RUN \
@@ -24,13 +28,12 @@ COPY my_configs.vim /root/.vim_runtime/
 # supervisor
 RUN sed -i 's/^\(\[supervisord\]\)$/\1\nnodaemon=true/' /etc/supervisor/supervisord.conf
 
-# iojs
-RUN curl -L https://iojs.org/dist/v1.5.1/iojs-v1.5.1-linux-x64.tar.xz | tar Jxvf - -C /opt
-RUN echo 'export PATH="$PATH:/opt/iojs-v1.5.1-linux-x64/bin"' >> /root/.zshrc
-RUN chown -R root:root /opt/iojs-v1.5.1-linux-x64
-
 VOLUME ["/etc/supervisor/conf.d"]
 
 WORKDIR /root
 
-CMD zsh
+ADD ./bootstrap.sh /bootstrap.sh
+RUN chmod a+x /bootstrap.sh
+
+ENTRYPOINT ["/bootstrap.sh"]
+CMD ["zsh"]
