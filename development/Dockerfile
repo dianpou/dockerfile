@@ -1,7 +1,8 @@
 FROM dianpou/production
 
-RUN apt-get install openssh-server
-COPY conf.d/sshd.conf /etc/supervisor/conf.d/sshd.conf
+COPY sources.list /etc/apt/sources.list
+RUN apt-get update && apt-get -y upgrade
+RUN apt-get install -y proxychains
 
 ENTRYPOINT ["/bootstrap.sh"]
 CMD supervisord -n

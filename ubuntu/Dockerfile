@@ -2,8 +2,6 @@ FROM ubuntu
 
 MAINTAINER Garbin Huang <garbinh@gmail.com>
 
-#COPY sources.list /etc/apt/sources.list
-
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list 
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y build-essential software-properties-common byobu curl git htop man unzip vim wget zsh exuberant-ctags openssh-server supervisor mysql-client postgresql-client ruby ruby-dev ruby-bundler python python-dev python-pip python-virtualenv openssh-server
